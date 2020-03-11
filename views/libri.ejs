@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p><a href="/">Ritorna Home page</a></p>
+        <form method="POST" action="/modlibro">
+            <input type="hidden" name="ID_libro" value="<%= libro.ID_libro %>">
+            <input type="text" name="titolo" value="<%= libro.titolo %>">
+            <input type="submit" value="Modifica">
+        </form>
+</body>
+</html>

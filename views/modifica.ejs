@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p><a href="/">Ritorna Home page</a></p>
+        <form method="POST" action="/modifica">
+            <input type="hidden" name="ID_autore" value="<%= autore.ID_autore %>">
+            <input type="text" name="nome" value="<%= autore.nome %>">
+            <input type="text" name="cognome" value="<%= autore.cognome %>">
+            <input type="submit" value="Modifica">
+        </form>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% autori.forEach(autore => { %>
+        <ul>
+            <li>id: <%= autore.ID_autore %> </li>
+            <li>nome: <%= autore.nome %></li>
+            <li>cognome: <%= autore.cognome %></li>
+            <li><a href="/modificautore/<%= autore.ID_autore %> ">Modifica</a></li>
+            <form action="/cancellautori" method="POST">
+                <input type="hidden" name="id_autore" value="<%= autore.ID_autore %> ">
+            <li> <input type="submit" value="Elimina"></li>
+            </form>
+        </ul>
+    <% }) %>
+    <% libri.forEach(libro => { %>
+        <ul>
+            <li>id: <%= libro.ID_libro %> </li>
+            <li>nome: <%= libro.titolo %></li>
+            <li>cognome: <%= libro.autore %></li>
+            <li><a href="/modificalibri/<%= libro.ID_libro %> ">Modifica</a></li>
+            <form action="/cancellalibro" method="POST">
+                <input type="hidden" name="id_autore" value="<%= libro.ID_libro %> ">
+            <li><input type="submit" value="Elimina"></li>
+            </form>
+        </ul>
+    <% }) %>
+</body>
+</html>

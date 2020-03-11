@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Autori:</p>
+    <% autori.forEach(autore => { %>
+        <ul>
+            <li>id: <%= autore.ID_autore %> </li>
+            <li>nome: <%= autore.nome %></li>
+            <li>cognome: <%= autore.cognome %></li>
+        </ul>
+    <% }) %>
+    <p>Libri:</p>
+    <% libri.forEach(libro => { %>
+        <ul>
+            <li>id: <%= libro.ID_libro %> </li>
+            <li>nome: <%= libro.titolo %></li>
+            <li>cognome: <%= libro.autore %></li>
+        </ul>
+    <% }) %>
+</body>
+</html>
