@@ -21,15 +21,26 @@ const db = new sqlite3.Database('./test.db',function(){
     console.log('database open')
 });
 
-app.get('/',function(req,res){
-    sql='select * from Autori';
-    db.all(sql,function(err,rows){
-        autori=rows
-        sql='select * from Libri';
-        db.all(sql,function(err,rows){
-            libri=rows;
-            res.render('amministratore',{autori,libri});
-        });
+app.get('/',(req,res)=>{
+    let sql = "SELECT * FROM Autori";
+    db.all(sql,(err,rows)=>{
+        autori=rows;
+        if (err) res.send('è esploso');
+        else {
+            sql = "SELECT * FROM Libri";
+            db.all(sql,(err,rows)=>{
+                libri=rows;
+                if (err) res.send('è esploso parte 2');
+                else {
+                    sql = "SELECT * FROM autori_libri";
+                    db.all(sql,(err,rows)=>{
+                        relazioni=rows
+                        if (err) res.send('è esploso parte 3');
+                        else res.render('admin',{autori,libri,relazioni});
+                    });
+                }
+            });
+        }
     });
 });
 
@@ -86,6 +97,34 @@ app.post('/cancellalibro',(req,res)=>{
     const id=parseInt(req.body.id_libro);
     let sql = `DELETE FROM Libri WHERE Libri.id_libro=${id}`;
     db.run(sql)
+    res.redirect('/');
+});
+
+app.get('/modifica/relazione/:id',(req,res)=>{
+    sql=`select * from autori_libri where id = ${req.params.id}`;
+    db.each(sql,(err,row)=>{
+        res.render('modRelazione',{relazione:row});
+    });
+});
+
+app.post('/modrelazione',(req,res)=>{
+    const id=parseInt(req.body.id);
+    sql=`UPDATE autori_libri SET id_autore='${req.body.id_autore}',id_libro='${req.body.id_libro}' WHERE autori_libri.id = ${id}`;
+    db.run(sql);
+    res.redirect("/");
+});
+
+app.post('/delrelazione',(req,res)=>{
+    const id=parseInt(req.body.id);
+    let sql = `DELETE FROM autori_libri WHERE autori_libri.id=${id}`;
+    db.run(sql);;
+    res.redirect('/');
+});
+
+app.post('/addrelazione',(req,res)=>{
+    const id=parseInt(req.body.id);
+    let sql = `insert into autori_libri (id_autore, id_libro) values ('${req.body.id_autore}', '${req.body.id_libro}');`;
+    db.run(sql);
     res.redirect('/');
 });
 

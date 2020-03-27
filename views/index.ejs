@@ -1,25 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Index</title>
 </head>
 <body>
-    <p>Autori:</p>
-    <% autori.forEach(autore => { %>
+    <h1>Lista autori e libri</h1>
+    <% rows.forEach(row => { %>
         <ul>
-            <li>id: <%= autore.ID_autore %> </li>
-            <li>nome: <%= autore.nome %></li>
-            <li>cognome: <%= autore.cognome %></li>
-        </ul>
-    <% }) %>
-    <p>Libri:</p>
-    <% libri.forEach(libro => { %>
-        <ul>
-            <li>id: <%= libro.ID_libro %> </li>
-            <li>nome: <%= libro.titolo %></li>
-            <li>cognome: <%= libro.autore %></li>
+            <li>ID: <%= row.id %> </li>
+            <li>Titolo: <%= row.titolo %> </li>
+            <li>Autori: <%= row.autori %> </li>
         </ul>
     <% }) %>
 </body>

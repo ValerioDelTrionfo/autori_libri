@@ -21,15 +21,11 @@ const db = new sqlite3.Database('./test.db',function(){
     console.log('database open')
 });
 
-app.get('/',function(req,res){
-    sql='select * from Autori';
-    db.all(sql,function(err,rows){
-        autori=rows
-        sql='select * from Libri';
-        db.all(sql,function(err,rows){
-            libri=rows;
-            res.render('index',{autori,libri});
-        });
+app.get('/',(req,res)=>{
+    let sql = "SELECT libri.id, libri.titolo, group_concat(autori.cognome) as autori FROM libri INNER JOIN autori_libri ON libri.id=autori_libri.id_libro INNER JOIN autori ON autori_libri.id_autore=autori.id GROUP BY libri.id ORDER BY libri.titolo"
+    db.all(sql,(err,rows)=>{
+        if (err) res.send('è esploso');
+        else res.render('index',{rows});
     });
 });
 
